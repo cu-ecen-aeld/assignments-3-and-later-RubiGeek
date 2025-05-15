@@ -61,25 +61,6 @@ bool do_system(const char *cmd)
 *   by the command issued in @param arguments with the specified arguments.
 */
 
-void proc_exit(int sig)
-{
-	int wstat;
-	pid_t	pid;
-    ret_val = 0;
-    pid = wait3 (&wstat, WNOHANG, (struct rusage *)NULL );
-    if (pid == 0)
-    return;
-    else if (pid == -1)
-        return;
-    else
-    printf ("Return code: %d\n", wstat);
-    // This function is called when a child process exits
-    // It can be used to handle the exit status of the child process
-    // For example, you can print the exit status or perform cleanup tasks
-    //printf("Child process exited with signal %d\n", sig);
-    ret_val = wstat;
-    //exit(sig);
-}
 
 bool do_exec(int count, ...)
 {
@@ -109,9 +90,7 @@ bool do_exec(int count, ...)
     int pid = fork();
     if(pid == 0)
     {
-        //printf("Command: %s\n", command[0]);
         // child process
-
         execv(command[0], command);
         exit(EXIT_FAILURE);
 
@@ -119,12 +98,11 @@ bool do_exec(int count, ...)
     else if(pid < 0)
     {
         // fork failed
-        //perror("fork failed");
+        perror("fork failed");
         return false;
     }
     else
     {
-        //
         // parent process
         int status;
         if(waitpid(pid, &status, 0) == -1)
