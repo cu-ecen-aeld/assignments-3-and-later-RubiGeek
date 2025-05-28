@@ -8,7 +8,8 @@ set -u
 NUMFILES=10
 WRITESTR=AELD_IS_FUN
 WRITEDIR=/tmp/aeld-data
-READDIR=/etc/findder-app
+READDIR=/etc/finder-app
+OUTPUTFILE=/tmp/assignment4-result.txt
 username=$(cat ${READDIR}/conf/username.txt)
 
 if [ $# -lt 3 ]
@@ -56,11 +57,13 @@ fi
 for i in $( seq 1 $NUMFILES)
 do
 	echo "Writing $WRITESTR to file ${WRITEDIR}/${username}$i.txt"
-	./writer "$WRITEDIR/${username}$i.txt" "$WRITESTR"
+	writer "$WRITEDIR/${username}$i.txt" "$WRITESTR"
 done
 
-OUTPUTSTRING=$(./finder.sh /tmp/assignment4-result.txt "$WRITESTR")
+OUTPUTSTRING=$(finder.sh "$WRITEDIR" "$WRITESTR") 
 
+#echo "Output string = ${OUTPUTSTRING}" 
+echo ${OUTPUTSTRING} > ${OUTPUTFILE}
 # remove temporary directories
 rm -rf /tmp/aeld-data
 
