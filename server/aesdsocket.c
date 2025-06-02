@@ -134,7 +134,7 @@ int main(int argc, char *argv[]) {
         }
 
         log_message("Client connected.");
-        char buffer[1024*100];
+        char buffer[1024*1000];
         ssize_t bytes_received = recv(client_socket, buffer, sizeof(buffer) - 1, 0);
         log_message("Received data from client.");
         if (bytes_received > 0) {
