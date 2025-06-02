@@ -69,6 +69,7 @@ int main(int argc, char *argv[]) {
             break;
         }
     }
+    system("rm -f " DATA_FILE);
     server_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (server_socket == -1) {
         perror("socket");
