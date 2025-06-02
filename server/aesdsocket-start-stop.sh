@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 case "$1" in
     start)
@@ -14,6 +14,6 @@ case "$1" in
     *)
         echo "Usage: $0 {start|stop}"
         exit 1
-esac$(INSTALL) -m
+esac
 
 exit $?
