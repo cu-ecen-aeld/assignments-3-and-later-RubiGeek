@@ -65,6 +65,9 @@ int main(int argc, char *argv[]) {
         case 'd':
             daemon_opt = 1;
             break;
+        case 'k':
+            handle_signal(SIGTERM);
+            exit(EXIT_SUCCESS);
         default: /* '?' */
             break;
         }
