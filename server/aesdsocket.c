@@ -79,7 +79,7 @@ void process_data(void) {
     }   
 }
 
-void* trhead_function(void *thread_param) {
+void* trhead_function(void *thread_param) { 
     struct thread_data* thread_func_args = (struct thread_data *) thread_param;
     int rc = 0;
     if (thread_func_args == NULL) {
