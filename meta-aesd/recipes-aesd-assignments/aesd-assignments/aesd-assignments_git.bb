@@ -1,5 +1,5 @@
 inherit update-rc.d
-INITSCRIPT_NAME:${PN} = "${bindir}/aesdsocket-start-stop.sh"
+INITSCRIPT_NAME = "aesdsocket-start-stop.sh"
 # See https://git.yoctoproject.org/poky/tree/meta/files/common-licenses
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
