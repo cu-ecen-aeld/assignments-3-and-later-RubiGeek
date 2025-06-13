@@ -1,4 +1,6 @@
 inherit core-image
+inherit update-rc.d
+INITSCRIPT_NAME:${PN}= "${bindir}/aesdsocket-start-stop.sh"
 #CORE_IMAGE_EXTRA_INSTALL += "aesd-assignments"
 CORE_IMAGE_EXTRA_INSTALL += "openssh"
 inherit extrausers
