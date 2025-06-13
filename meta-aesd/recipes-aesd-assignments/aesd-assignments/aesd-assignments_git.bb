@@ -1,3 +1,5 @@
+inherit update-rc.d
+INITSCRIPT_NAME:${PN} = "${bindir}/aesdsocket-start-stop.sh"
 # See https://git.yoctoproject.org/poky/tree/meta/files/common-licenses
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
@@ -8,7 +10,7 @@ SRC_URI = "git://git@github.com/cu-ecen-aeld/assignments-3-and-later-RubiGeek.gi
 
 PV = "1.0+git${SRCPV}"
 # TODO: set to reference a specific commit hash in your assignment repo
-SRCREV = "949f7db4b7e5686f437d58d75209bf76e94ece1c"
+SRCREV = "aed468275e8ce94729934b400f01d478b757b396"
 
 # This sets your staging directory based on WORKDIR, where WORKDIR is defined at 
 # https://docs.yoctoproject.org/ref-manual/variables.html?highlight=workdir#term-WORKDIR
