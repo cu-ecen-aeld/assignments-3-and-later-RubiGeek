@@ -46,4 +46,4 @@ do_install () {
 	install -m 0755 ${S}/aesdsocket ${D}${bindir}/
 	install -m 0755 ${S}/aesdsocket-start-stop.sh ${D}${bindir}/
 }
-}
+
