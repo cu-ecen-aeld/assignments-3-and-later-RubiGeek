@@ -25,9 +25,15 @@ pthread_mutex_t *mutex;
 struct slisthead head = SLIST_HEAD_INITIALIZER(head);
 
 void handle_signal(int signal) {
+    int rc;
     if (signal == SIGINT || signal == SIGTERM) {
         syslog(LOG_INFO, "Caught signal, exiting");
-        system("rm -f " DATA_FILE);
+        rc = system("rm -f " DATA_FILE);   
+        if (rc == -1) {
+            syslog(LOG_ERR, "Failed to remove data file: %s", DATA_FILE);
+        } else {
+            syslog(LOG_INFO, "Data file removed successfully.");
+        }
         close(server_socket);
         unlink(SOCKET_PATH);
         exit(0);
@@ -48,9 +54,18 @@ void log_message(const char *message) {
 }
 
 void append_to_file(const char *data) {
+    int rc;
     int fd = open(DATA_FILE, O_WRONLY | O_APPEND | O_CREAT, 0644);
     if (fd != -1) {
-        write(fd, data, strlen(data));
+        rc = write(fd, data, strlen(data));
+        if (rc == -1) {
+            syslog(LOG_ERR, "Failed to write to file: %s", DATA_FILE);
+        } else {
+            syslog(LOG_INFO, "Data written to file: %s", DATA_FILE);
+        }
+    } else {
+        syslog(LOG_ERR, "Failed to open file: %s", DATA_FILE);
+    }
         close(fd);
     }
 }
@@ -213,10 +228,22 @@ int main(int argc, char *argv[]) {
             exit(EXIT_FAILURE);
         }
         // Redirect standard input, output, and error to /dev/null
-        freopen(LOG_FILE, "r", stdin);
-        freopen(LOG_FILE, "w", stdout);
-        freopen(LOG_FILE, "w", stderr);
-        
+        int rc;
+        rc = freopen(LOG_FILE, "r", stdin);
+        if (rc == NULL) {
+            perror("freopen stdin");
+            exit(EXIT_FAILURE);
+        }
+        rc = freopen(LOG_FILE, "w", stdout);
+        if (rc == NULL) {
+            perror("freopen stdout");
+            exit(EXIT_FAILURE);
+        }
+        rc = freopen(LOG_FILE, "w", stderr);
+        if (rc == NULL) {
+            perror("freopen stderr");
+            exit(EXIT_FAILURE);
+        }
         if (daemon(0, 0) == -1) {
             perror("daemon");
             close(server_socket);
