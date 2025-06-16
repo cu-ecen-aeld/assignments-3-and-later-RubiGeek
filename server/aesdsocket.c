@@ -179,7 +179,12 @@ int main(int argc, char *argv[]) {
     }
 
     // Remove the data file if it exists
-    system("rm -f " DATA_FILE);
+    int rc =system("rm -f " DATA_FILE);
+    if (rc == -1) {
+        perror("Failed to remove data file");
+        free(mutex);
+        exit(EXIT_FAILURE);
+    } 
 
     server_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (server_socket == -1) {
