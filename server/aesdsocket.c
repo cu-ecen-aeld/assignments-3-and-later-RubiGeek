@@ -232,23 +232,6 @@ int main(int argc, char *argv[]) {
             close(server_socket);
             exit(EXIT_FAILURE);
         }
-        // Redirect standard input, output, and error to /dev/null
-        FILE *fl;
-        fl = freopen(LOG_FILE, "r", stdin);
-        if (fl == NULL) {
-            perror("freopen stdin");
-            exit(EXIT_FAILURE);
-        }
-        fl = freopen(LOG_FILE, "w", stdout);
-        if (fl == NULL) {
-            perror("freopen stdout");
-            exit(EXIT_FAILURE);
-        }
-        fl = freopen(LOG_FILE, "w", stderr);
-        if (fl == NULL) {
-            perror("freopen stderr");
-            exit(EXIT_FAILURE);
-        }
         if (daemon(0, 0) == -1) {
             perror("daemon");
             close(server_socket);
