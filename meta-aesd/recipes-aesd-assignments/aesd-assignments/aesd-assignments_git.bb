@@ -1,4 +1,4 @@
-inherit update-rc.d
+
 INITSCRIPT_NAME = "aesdsocket-start-stop.sh"
 # See https://git.yoctoproject.org/poky/tree/meta/files/common-licenses
 LICENSE = "MIT"
@@ -18,10 +18,13 @@ SRCREV = "96bf01157144b5b100f89fc19939590b55321be6"
 # in your assignments repo
 S = "${WORKDIR}/git/server"
 
+inherit update-rc.d
+INITSCRIPT_PACKAGES = "${PN}"
+INITSCRIPT_NAME:${PN} = "aesdsocket-start-stop.sh"
+
 # TODO: Add the aesdsocket application and any other files you need to install
 # See https://git.yoctoproject.org/poky/plain/meta/conf/bitbake.conf?h=kirkstone
-FILES:${PN} += "${bindir}/aesdsocket \
-	${bindir}/aesdsocket-start-stop.sh \
+FILES:${PN} += "${bindir}/aesdsocket"
 "
 # TODO: customize these as necessary for any libraries you need for your application
 # (and remove comment)
