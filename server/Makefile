@@ -1,4 +1,4 @@
-CC = $(CROSS_COMPILE)gcc
+CC ?= $(CROSS_COMPILE)gcc
 CFLAGS = -Wall -Wextra -Werror
 TARGET = aesdsocket
 SRC = aesdsocket.c
