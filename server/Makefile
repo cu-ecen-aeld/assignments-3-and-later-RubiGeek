@@ -5,12 +5,15 @@ SRC = aesdsocket.c
 HEADER = aesdsocket.h
 OBJ = $(SRC:.c=.o)
 
+LDFLAGS ?= -pthread -lrt
+
+
 # Default rule (runs when you type 'make')
 all: $(TARGET)
 
 # Compile the program
 $(TARGET): $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 # Generate object file
 $(OBJ): $(SRC) $(HEADER)
