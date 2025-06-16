@@ -66,8 +66,8 @@ void append_to_file(const char *data) {
     } else {
         syslog(LOG_ERR, "Failed to open file: %s", DATA_FILE);
     }
-        close(fd);
-    }
+    close(fd);
+
 }
 
 void send_file_content(int client_socket) {
@@ -228,19 +228,19 @@ int main(int argc, char *argv[]) {
             exit(EXIT_FAILURE);
         }
         // Redirect standard input, output, and error to /dev/null
-        int rc;
-        rc = freopen(LOG_FILE, "r", stdin);
-        if (rc == NULL) {
+        FILE *fl;
+        fl = freopen(LOG_FILE, "r", stdin);
+        if (fl == NULL) {
             perror("freopen stdin");
             exit(EXIT_FAILURE);
         }
-        rc = freopen(LOG_FILE, "w", stdout);
-        if (rc == NULL) {
+        fl = freopen(LOG_FILE, "w", stdout);
+        if (fl == NULL) {
             perror("freopen stdout");
             exit(EXIT_FAILURE);
         }
-        rc = freopen(LOG_FILE, "w", stderr);
-        if (rc == NULL) {
+        fl = freopen(LOG_FILE, "w", stderr);
+        if (fl == NULL) {
             perror("freopen stderr");
             exit(EXIT_FAILURE);
         }
