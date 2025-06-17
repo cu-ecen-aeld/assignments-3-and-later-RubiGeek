@@ -34,7 +34,7 @@ struct aesd_buffer_entry *aesd_circular_buffer_find_entry_offset_for_fpos(struct
     uint8_t index;
 
     // Check if the buffer is empty
-    if (buffer->in_offs == buffer->out_offs && !buffer->full) {
+    if (buffer->in_offs == buffer->out_offs && !buffer->full) { 
         return NULL; // Buffer is empty
     }
 
